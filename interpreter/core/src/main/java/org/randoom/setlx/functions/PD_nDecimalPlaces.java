@@ -43,11 +43,16 @@ public class PD_nDecimalPlaces extends PreDefinedProcedure {
             );
         }
         final int           n       = nValue.jIntValue();
+        final StringBuilder result  = new StringBuilder();
+
+        if (number.compareTo(Rational.ZERO) == -1) {
+            number = number.absoluteValue(state);
+            result.append("-");
+        }
 
               Value         rest    = number.modulo(state, Rational.ONE);
         final Value         intPart = number.difference(state, rest);
 
-        final StringBuilder result  = new StringBuilder();
 
         intPart.appendString(state, result, 0);
         result.append(".");
